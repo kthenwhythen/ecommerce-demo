@@ -28,7 +28,7 @@ app.get("/set", ({ set }) => {
   return "hi";
 });
 
-app.listen(3001);
+app.listen(3042);
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
