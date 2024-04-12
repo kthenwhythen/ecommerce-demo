@@ -1,14 +1,32 @@
-# docker-compose.yml
 version: "3.9"
 
+volumes:
+  postgres_data:
+
 services:
-  app:
-    build: "./"
-    # override default entrypoint allows us to do `bun install` before serving
-    entrypoint: []
-    # execute bun install before we start the dev server in watch mode
+  gateway-service:
+    build: "./gateway-service"
+    ports: ["3000:80"]
+    # add watch mode
+    depends_on:
+      - users-service
+
+  users-service:
+    build: "./users-service"
     command: "/bin/sh -c 'bun install && bun run --watch src/index.ts'"
-    # expose the right ports
-    ports: ["3000:3000"]
-    # setup a host mounted volume to sync changes to the container
-    volumes: ["./:/home/bun/app"]
+    ports: ["3001:80"]
+    volumes:
+      - "./users-service:/app"
+    # environment:
+    #   - DATABASE_URL=postgres://postgres:password@db:5432/users
+    depends_on:
+      - users-service-db
+
+  users-service-db:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_DB=users-service-db
+      - POSTGRES_USER=users-service-pg
+      - POSTGRES_PASSWORD=12345
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data/

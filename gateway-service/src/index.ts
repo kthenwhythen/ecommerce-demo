@@ -3,13 +3,13 @@ import httpProxy from "http-proxy";
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
-const port = 3000;
+const port = 80;
 const services: Record<string, string | undefined> = {
-  users: "http://localhost:3001",
+  "users-service": "http://users-service:80",
   service3: process.env.SERVICE3_URL,
   service4: process.env.SERVICE4_URL,
   service5: process.env.SERVICE5_URL,
-  example: "http://localhost:3042",
+  example: "http://localhost:80",
 };
 
 // Route requests to the appropriate service
