@@ -3,20 +3,20 @@ import { swagger } from "@elysiajs/swagger";
 import { errorHandlerPlugin } from "./plugins/error-handler-plugin";
 import { usersV1Controller } from "./controllers/v1/users";
 import { pgDatabasePlugin } from "./plugins/pg-database-plugin";
+import { startupMsgPlugin } from "./plugins/startup-msg-plugin";
+import { Logestic } from "logestic";
 
-// App
-const app = new Elysia();
+const app = new Elysia()
+  // Plugins
+  .use(swagger())
+  .use(Logestic.preset("common"))
+  .use(errorHandlerPlugin)
+  .use(pgDatabasePlugin)
+  .use(startupMsgPlugin)
 
-// Plugins
-app.use(swagger());
-app.use(errorHandlerPlugin);
-app.use(pgDatabasePlugin);
-// add logs
-// add verison
+  // Controllers
+  .use(usersV1Controller())
 
-// Controllers
-app.use(usersV1Controller());
-
-app.listen(80);
+  .listen(80);
 
 export type App = typeof app;
