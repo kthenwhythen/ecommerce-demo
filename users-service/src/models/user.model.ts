@@ -1,36 +1,33 @@
-import { DataTypes } from "sequelize";
+import { DataType } from "sequelize-typescript";
 import { Elysia } from "elysia";
 import { sequelizePlugin } from "../plugins/sequelize-plugin";
 
-let User;
-
 export const userModel = new Elysia()
   // Services
+  .use(sequelizePlugin)
 
   .use(async (ctx) => {
     const sq = ctx.decorator.sq;
 
-    User = sq.define("user", {
+    let User = sq.define("user", {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataType.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataType.STRING,
       },
       email: {
-        type: DataTypes.STRING,
+        type: DataType.STRING,
       },
       password: {
-        type: DataTypes.STRING,
+        type: DataType.STRING,
       },
     });
 
     await User.sync({ force: true });
     console.log("User model created successfully.");
 
-    return new Elysia();
-  })
-
-  .decorate("UserModel", User);
+    return ctx.decorate("UserModel", User);
+  });

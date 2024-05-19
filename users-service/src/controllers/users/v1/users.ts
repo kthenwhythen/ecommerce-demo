@@ -43,11 +43,15 @@ export const usersV1Controller = (
       .get("/test/create", async (ctx) => {
         const UserModel = ctx.UserModel;
 
-        UserModel.create({
+        const newUser = await UserModel.create({
           name: "John Doe",
           email: "lol@mail.com",
           password: "123321",
         });
+
+        return {
+          data: newUser,
+        };
       })
   );
 };

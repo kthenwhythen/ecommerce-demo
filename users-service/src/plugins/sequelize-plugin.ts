@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 
 const sequelize = new Sequelize(
   "users-service-db",
