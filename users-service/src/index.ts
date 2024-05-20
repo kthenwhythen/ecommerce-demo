@@ -12,7 +12,7 @@ const app = new Elysia()
   .use(swagger())
   .use(Logestic.preset("common"))
   .use(errorHandlerPlugin)
-  .use(sequelizePlugin)
+  // .use(sequelizePlugin)
   .use(startupMsgPlugin)
 
   // Models

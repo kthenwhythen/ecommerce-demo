@@ -8,6 +8,7 @@
   "dependencies": {
     "@elysiajs/eden": "^1.0.12",
     "@elysiajs/swagger": "^1.0.3",
+    "@prisma/client": "^5.14.0",
     "@types/pg": "^8.11.5",
     "elysia": "1.0.14",
     "logestic": "^1.1.1",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "bun-types": "latest",
+    "prisma": "^5.14.0",
     "sequelize-cli": "^6.6.2"
   },
   "module": "src/index.js"
